@@ -1,0 +1,11 @@
+{
+  "name": "game-finder-server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "HS301-Pioneers",
+  "license": "ISC"
+}
