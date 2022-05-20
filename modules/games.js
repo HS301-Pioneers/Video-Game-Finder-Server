@@ -4,7 +4,8 @@ const axios = require("axios");
 module.exports = findGames;
 
 async function findGames(gameName) {
-    const query = gameName
+    const key = "game- " + gameName;
+    const query = gameName;
     const url = `https://api.rawg.io/api/games?key=${process.env.API_KEY}&search="${query}"`
     console.log(url);
     if (cache[key] && Date.now() - cache[key].timestamp < 10800000) {
@@ -22,16 +23,17 @@ async function findGames(gameName) {
 }
 
 function getGames(gameData) {
+  console.log("GetGames Called");
     try {
       console.log("GameData: ", gameData);
       const gameSummary = gameData.data.results.map((game) => {
-        return new Forecast(day);
+        return new Forecast(game);
       });
       console.log("Data: ", gameSummary);
-      return Promise.resolve(gameSummary);
+      // return Promise.resolve(gameSummary);
     } catch (e) {
       console.log(e);
-      return Promise.reject(e);
+      // return Promise.reject(e);
     }
   }
   
