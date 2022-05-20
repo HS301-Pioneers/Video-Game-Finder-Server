@@ -27,7 +27,7 @@ function getGames(request, response) {
   .catch( e => {
     console.error(e)
     response.status(500)
-    .send("I'm sorry an internal server error occured. Trying again, if the problem persists call support at Fake-Num-Ber")
+    .send("I'm sorry an internal server error occured. Trying again, if the problem persists call support at Fake-Num-Ber.")
   })
 }
 // function weatherHandler(request, response) {

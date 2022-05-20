@@ -14,7 +14,7 @@ async function findGames(gameName) {
         console.log("Cache miss");
         cache[key] = {};
         cache[key].timestamp = Date.now();
-        cache[key].data = axios
+        cache[key].data = await axios
           .get(url)
           .then((response) => getGames(response.data));
       }
@@ -26,18 +26,18 @@ function getGames(gameData) {
   console.log("GetGames Called");
     try {
       console.log("GameData: ", gameData);
-      const gameSummary = gameData.data.results.map((game) => {
-        return new Forecast(game);
+      const gameSummary = gameData.results.map((game) => {
+        return new Gamecast(game);
       });
       console.log("Data: ", gameSummary);
-      // return Promise.resolve(gameSummary);
+      return Promise.resolve(gameSummary); 
     } catch (e) {
       console.log(e);
-      // return Promise.reject(e);
+      return Promise.reject(e);
     }
   }
   
-  function Forecast(game) {
+  function Gamecast(game) {
     this.gameName = game.name;
     this.genres = game.genres;
     this.gameTags = game.tags;
@@ -45,4 +45,8 @@ function getGames(gameData) {
     this.backgroundImg = game.background_image;
     this.gameStores = game.stores;
     this.release_date = game.released
+    this.gameStars = game.rating
+    this.rating = game.esrb_rating
+    this.screenshot1 = game.short_screenshots[0]
+    this.screenshot2 = game.short_screenshots[1]
   }
