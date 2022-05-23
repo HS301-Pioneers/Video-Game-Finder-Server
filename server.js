@@ -23,7 +23,8 @@ function getGames(request, response) {
   let search = request.query.gameName
   
   findGames(search)
-  .then(gameData => response.send(gameData))
+  .then(gameData => response.status(200)
+  .send(gameData))
   .catch( e => {
     console.error(e)
     response.status(500)
