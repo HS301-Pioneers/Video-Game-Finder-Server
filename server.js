@@ -4,7 +4,6 @@ require("dotenv").config();
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
-const db = mongoose.connection;
 const app = express();
 const axios = require("axios");
 const findGames = require("./modules/games.js")
@@ -14,6 +13,7 @@ app.use(express.json());
 const PORT = process.env.PORT || 3002;
 
 mongoose.connect(process.env.MONGO_CONNECT);
+const db = mongoose.connection;
 db.on("error", console.error.bind(console, "connection error: "));
 db.once("open", (_) => {
   console.log("Mongo Atlas connection sucessful");
