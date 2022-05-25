@@ -38,6 +38,11 @@ function getGames(request, response) {
   })
 }
 
+app.get("/wishlist", wishlistData);
+
+async wishlistData(request, response) {...}
+
+
 app.listen(PORT, () => console.log(`listening on ${PORT}`));
 // Mongo database for later
 
