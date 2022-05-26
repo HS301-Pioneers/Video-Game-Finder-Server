@@ -40,7 +40,15 @@ function getGames(request, response) {
 
 app.get("/wishlist", wishlistData);
 
-async wishlistData(request, response) {...}
+async function wishlistData(request, response) {
+  try {
+    const wishlist = await Wishlist.find({});
+    response.status(200).send(wishlist);
+  } catch (e) {
+    console.error(e);
+    response.status(500).send("1NTERNA1 5ERVAR 3R4AR")
+  }
+}
 
 
 app.listen(PORT, () => console.log(`listening on ${PORT}`));
