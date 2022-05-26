@@ -1,33 +1,32 @@
 "use strict";
 let cache = require('./cache.js');
 const axios = require("axios");
-module.exports = getGames;
+module.exports = findGames;
 
-// async function findGames(gameName) {
-//     const key = "game- " + gameName;
-//     const query = gameName;
-//     console.log(url);
-//     if (cache[key] && Date.now() - cache[key].timestamp < 10800000) {
-//         console.log("Cache hit");
-//       } else {
-//         console.log("Cache miss");
-//         cache[key] = {};
-//         cache[key].timestamp = Date.now();
-//         cache[key].data = await axios
-//           .get(url)
-//           .then((response) => getGames(response.data));
-//       }
-//       console.log("Data: ", cache[key].data);
-//       return cache[key].data;
-// }
+async function findGames(query) {
+    const key = "game- " + query;
+    const url = `https://api.rawg.io/api/games?key=${process.env.API_KEY}&search="${query}"`
+    console.log(url);
+    if (cache[key] && (Date.now() - cache[key].timestamp < 10800000)) {
+        console.log("Cache hit");
+      } else {
+        console.log("Cache miss");
+        cache[key] = {};
+        cache[key].timestamp = Date.now();
+        cache[key].data = await axios.get(url)
+          .then((response) => getGames(response.data));
+      }
+      console.log("Cache: ", cache);
+      return cache[key].data;
+}
 
 async function getGames(query) {
-  const url = `https://api.rawg.io/api/games?key=${process.env.API_KEY}&search="${query}"`
+  // const url = `https://api.rawg.io/api/games?key=${process.env.API_KEY}&search="${query}"`
   console.log("GetGames Called");
     try {
-      const gameData = await axios.get(url)
-      console.log("GameData: ", gameData);
-      const gameSummary = gameData.data.results.map((game) => {
+      // const gameData = await axios.get(url)
+      // console.log("GameData: ", query);
+      const gameSummary = query.results.map((game) => {
         return new Gamecast(game);
       });
       console.log("Data: ", gameSummary);

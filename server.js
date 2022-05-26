@@ -2,6 +2,7 @@
 
 require("dotenv").config();
 const express = require("express");
+const mongoose = require("mongoose");
 const cors = require("cors");
 const app = express();
 const axios = require("axios");
@@ -9,13 +10,18 @@ const findGames = require("./modules/games.js")
 app.use(cors());
 app.use(express.json());
 
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT || 3002;
+
+mongoose.connect(process.env.MONGO_CONNECT);
+const db = mongoose.connection;
+db.on("error", console.error.bind(console, "connection error: "));
+db.once("open", (_) => {
+  console.log("Mongo Atlas connection sucessful");
+});
 
 app.get("/test", (request, response) => {
     response.send("test request received");
   });
-
-app.listen(PORT, () => console.log(`listening on ${PORT}`));
 
 app.get("/games", getGames);
 
@@ -31,20 +37,23 @@ function getGames(request, response) {
     .send("I'm sorry an internal server error occured. Trying again, if the problem persists call support at Fake-Num-Ber.")
   })
 }
-// function weatherHandler(request, response) {
-//   let lat = request.query.lat;
-//   let lon = request.query.lon;
-//   // let searchQuery = request.query.searchQuery;
 
-//  getWeather(lat, lon)
-//   .then(summaries => response.send(summaries))
-//   .catch(error => {
-//     console.log(error);
-//     response.status(500).send('meow meow your request failed.');
-//   })
-// };
+app.get("/wishlist", wishlistData);
+
+async function wishlistData(request, response) {
+  try {
+    const wishlist = await Wishlist.find({});
+    response.status(200).send(wishlist);
+  } catch (e) {
+    console.error(e);
+    response.status(500).send("1NTERNA1 5ERVAR 3R4AR")
+  }
+}
+
+
+app.listen(PORT, () => console.log(`listening on ${PORT}`));
 // Mongo database for later
-// const db = mongoose.connection;
+
 // const Book = require("./models/books");
 
 // mongoose.connect(process.env.MONGO_CONNECT);
