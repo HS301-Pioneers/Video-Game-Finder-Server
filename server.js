@@ -9,6 +9,7 @@ const axios = require("axios");
 const findGames = require("./modules/games.js")
 app.use(cors());
 app.use(express.json());
+const Wishlist = require("./models/wishlist");
 
 const PORT = process.env.PORT || 3002;
 
