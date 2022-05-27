@@ -10,7 +10,7 @@ async function wishlistAdd() {
     console.log("Wonderful wishes for games loading...!");
 
     await Wishlist.create({
-        nameName: "nam",
+        gameName: "nam",
         genres: ["wow", "this", "an", "array"],
         gameTags: ["wow", "gametags"],
         platforms: ["You can play this game on", "JK YOU CAN'T HAHAHAHHAHA"],
