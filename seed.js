@@ -10,18 +10,31 @@ async function wishlistAdd() {
     console.log("Wonderful wishes for games loading...!");
 
     await Wishlist.create({
-        gameName: "nam",
-        genres: ["wow", "this", "an", "array"],
-        gameTags: ["wow", "gametags"],
-        platforms: ["You can play this game on", "JK YOU CAN'T HAHAHAHHAHA"],
-        backgroundImg: "https://http.cat/404",
-        gameStores: ["You can buy this game on", "https://www.thisworldthesedays.com/neural-mapping.html"],
-        release_date: "We was released on May 27th, 2022",
-        gameStars: 0,
-        rating: {esrb: "this isn't rated", reccomend: "No one should play this"},
-        screenshot1: {item: 1, url: "https://http.cat/500"},
-        screenshot2: {item: 2, url: "https://http.cat/200"},
+        gameName: "Interesting Nam",
+        genres: ["boooring", "just", "an", "average", "array"],
+        gameTags: ["gametags", "WOW"],
+        platforms: ["You can play this game on", "A nintendo 64"],
+        backgroundImg: "https://http.cat/406",
+        gameStores: ["You can buy this game on", "http://www.5z8.info/worm.exe_ommc"],
+        release_date: "We was released on May 31st, 2022",
+        gameStars: 9001,
+        rating: {esrb: "Rated g", reccomend: "It is illigeal to not play this game"},
+        screenshot1: {item: 1, url: "https://http.cat/600"},
+        screenshot2: {item: 2, url: "https://http.cat/204"},
     });
+    await Wishlist.create({
+      gameName: "Minceraft",
+      genres: ["sandbox", "blocks", "cats", "fighting"],
+      gameTags: ["yup", "I totally remember minecraft's gametags"],
+      platforms: ["You can play this game on", "EVERYTHING"],
+      backgroundImg: "https://http.cat/402",
+      gameStores: ["You can buy this game on", "https://www.tomorrowtides.com/not-a-susipcous-link"],
+      release_date: "We was released on May 31st, 2022",
+      gameStars: 4,
+      rating: {esrb: "13+", reccomend: "If you haven't played minecraft I am dissapointed in you."},
+      screenshot1: {item: 1, url: "https://http.cat/302"},
+      screenshot2: {item: 2, url: "https://http.cat/102"},
+  });
     console.log("Wonderful wishes for games loaded!");
     mongoose.disconnect()
 }
