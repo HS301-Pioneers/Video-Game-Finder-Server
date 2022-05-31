@@ -40,7 +40,8 @@ function getGames(request, response) {
 }
 
 app.get("/wishlist", wishlistData);
-app.post("/wishlist", newWishlistItem)
+app.post("/wishlist", newWishlistItem);
+app.delete("/wishlist/:id", deleteWishlistItem);
 
 async function wishlistData(request, response) {
   try {
@@ -58,6 +59,18 @@ async function newWishlistItem(request, response) {
   } catch(e){
     console.error(e)
     response.status(500).send("1NTERNA1 5ERVAR 3R4AR")
+  }
+}
+async function deleteWishlistItem(request, response) {
+  try {
+    const id = request.params.id;
+    console.log(`Game that is no longer worthy of existing on my wishlist's id: ${id}`);
+    await Wishlist.findByIdAndDelete(id);
+    response.status(204).send("This game is no longer existing on my wishlist!");
+    console.log("Bye bye game")
+  } catch(e) {
+    console.error(e)
+    response.status(500).send("1NTERNA1 5ERVAR 3R4AR");
   }
 }
 
