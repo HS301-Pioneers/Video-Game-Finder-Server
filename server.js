@@ -40,6 +40,7 @@ function getGames(request, response) {
 }
 
 app.get("/wishlist", wishlistData);
+app.post("/wishlist", newWishlistItem)
 
 async function wishlistData(request, response) {
   try {
@@ -50,15 +51,14 @@ async function wishlistData(request, response) {
     response.status(500).send("1NTERNA1 5ERVAR 3R4AR")
   }
 }
-
+async function newWishlistItem(request, response) {
+  try {
+    const wishlist = await Wishlist.create(request.body);
+    response.status(200).send(wishlist);
+  } catch(e){
+    console.error(e)
+    response.status(500).send("1NTERNA1 5ERVAR 3R4AR")
+  }
+}
 
 app.listen(PORT, () => console.log(`listening on ${PORT}`));
-// Mongo database for later
-
-// const Book = require("./models/books");
-
-// mongoose.connect(process.env.MONGO_CONNECT);
-// db.on("error", console.error.bind(console, "connection error: "));
-// db.once("open", (_) => {
-//   console.log("Mongo Atlas connection sucessful");
-// });
