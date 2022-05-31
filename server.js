@@ -40,6 +40,8 @@ function getGames(request, response) {
 }
 
 app.get("/wishlist", wishlistData);
+app.post("/wishlist", newWishlistItem);
+app.delete("/wishlist/:id", deleteWishlistItem);
 
 async function wishlistData(request, response) {
   try {
@@ -50,15 +52,26 @@ async function wishlistData(request, response) {
     response.status(500).send("1NTERNA1 5ERVAR 3R4AR")
   }
 }
-
+async function newWishlistItem(request, response) {
+  try {
+    const wishlist = await Wishlist.create(request.body);
+    response.status(200).send(wishlist);
+  } catch(e){
+    console.error(e)
+    response.status(500).send("1NTERNA1 5ERVAR 3R4AR")
+  }
+}
+async function deleteWishlistItem(request, response) {
+  try {
+    const id = request.params.id;
+    console.log(`Game that is no longer worthy of existing on my wishlist's id: ${id}`);
+    await Wishlist.findByIdAndDelete(id);
+    response.status(204).send("This game is no longer existing on my wishlist!");
+    console.log("Bye bye game")
+  } catch(e) {
+    console.error(e)
+    response.status(500).send("1NTERNA1 5ERVAR 3R4AR");
+  }
+}
 
 app.listen(PORT, () => console.log(`listening on ${PORT}`));
-// Mongo database for later
-
-// const Book = require("./models/books");
-
-// mongoose.connect(process.env.MONGO_CONNECT);
-// db.on("error", console.error.bind(console, "connection error: "));
-// db.once("open", (_) => {
-//   console.log("Mongo Atlas connection sucessful");
-// });
