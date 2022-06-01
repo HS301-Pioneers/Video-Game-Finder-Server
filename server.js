@@ -49,7 +49,7 @@ async function wishlistData(request, response) {
     response.status(200).send(wishlist);
   } catch (e) {
     console.error(e);
-    response.status(500).send("1NTERNA1 5ERVAR 3R4AR")
+    response.status(500).send({message: "Internal Server Error", url: "https://httpstatusdogs.com/500"})
   }
 }
 async function newWishlistItem(request, response) {
@@ -58,7 +58,7 @@ async function newWishlistItem(request, response) {
     response.status(200).send(wishlist);
   } catch(e){
     console.error(e)
-    response.status(500).send("1NTERNA1 5ERVAR 3R4AR")
+    response.status(500).send({message: "Internal Server Error", url: "https://httpstatusdogs.com/500"})
   }
 }
 async function deleteWishlistItem(request, response) {
@@ -70,7 +70,7 @@ async function deleteWishlistItem(request, response) {
     console.log("Bye bye game")
   } catch(e) {
     console.error(e)
-    response.status(500).send("1NTERNA1 5ERVAR 3R4AR");
+    response.status(500).send({message: "Internal Server Error", url: "https://httpstatusdogs.com/500"})
   }
 }
 
