@@ -7,6 +7,7 @@ const cors = require("cors");
 const app = express();
 const axios = require("axios");
 const findGames = require("./modules/games.js")
+const findGenres = require("./modules/genres.js")
 app.use(cors());
 app.use(express.json());
 const Wishlist = require("./model/wishlist");
@@ -25,6 +26,20 @@ app.get("/test", (request, response) => {
   });
 
 app.get("/games", getGames);
+app.get("/genres", getGenres);
+
+function getGenres(request, response) {
+  let search = request.query.genreName
+
+  findGenres(search)
+  .then(genreData => response.status(200)
+  .send(genreData))
+  .catch(e => {
+    console.error(e)
+    response.status(500)
+      .send("I'm sorry, an internal server error occured. Please try again, if the problem persists, call Fak-Num-Ber")
+  })
+}
 
 function getGames(request, response) {
   let search = request.query.gameName
@@ -35,7 +50,7 @@ function getGames(request, response) {
   .catch( e => {
     console.error(e)
     response.status(500)
-    .send("I'm sorry an internal server error occured. Trying again, if the problem persists call support at Fake-Num-Ber.")
+    .send("I'm sorry, an internal server error occured. Please try again, if the problem persists call support at Fake-Num-Ber.")
   })
 }
 
@@ -49,7 +64,7 @@ async function wishlistData(request, response) {
     response.status(200).send(wishlist);
   } catch (e) {
     console.error(e);
-    response.status(500).send("1NTERNA1 5ERVAR 3R4AR")
+    response.status(500).send({message: "Internal Server Error", url: "https://httpstatusdogs.com/500"})
   }
 }
 async function newWishlistItem(request, response) {
@@ -58,7 +73,7 @@ async function newWishlistItem(request, response) {
     response.status(200).send(wishlist);
   } catch(e){
     console.error(e)
-    response.status(500).send("1NTERNA1 5ERVAR 3R4AR")
+    response.status(500).send({message: "Internal Server Error", url: "https://httpstatusdogs.com/500"})
   }
 }
 async function deleteWishlistItem(request, response) {
@@ -70,7 +85,7 @@ async function deleteWishlistItem(request, response) {
     console.log("Bye bye game")
   } catch(e) {
     console.error(e)
-    response.status(500).send("1NTERNA1 5ERVAR 3R4AR");
+    response.status(500).send({message: "Internal Server Error", url: "https://httpstatusdogs.com/500"})
   }
 }
 
